@@ -7,8 +7,14 @@ Git Note
 ## Git实践
 1. 创建版本库
 	git init
-2. 增加文件至仓库
+2. 查看版本库状态
+	git status
+3. 查看修改
+	git diff [file]
+4. 添加文件(修改)至仓库
 	git add
 	git add .
-3. 提交文件至仓库
+5. 提交文件(修改)至仓库
 	git commit
+	git commit -m "提交说明"
+6.
