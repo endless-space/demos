@@ -37,8 +37,9 @@ Git Note
 6. 查看提交日志和命令日志
 	git log
 	git reflog 
-7. 切换版本(回退)版本, 撤销暂存区内容
+7. 切换版本(回退)版本
 	git reset --hard commit_id
 8. 回退到最近一次add 或 commit时的状态
 	git checkout -- [file]
-
+9. 将暂存区内容撤回至工作区
+	git reset HEAD [file]
