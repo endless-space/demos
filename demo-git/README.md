@@ -19,6 +19,7 @@ Git Note
   	指向master的指针: HEAD
   add 添加动作将修改从工作区添加至暂存区
   commit 提交动作将暂存区内容提交到当前分支
+  git分支的目的主要是隔离工作
 
 
 ## Git实践
@@ -39,7 +40,20 @@ Git Note
 	git reflog 
 7. 切换版本(回退)版本
 	git reset --hard commit_id
-8. 回退到最近一次add 或 commit时的状态
+8. 回退到最近一次add 或 commit时的状态 或 回复文件
 	git checkout -- [file]
 9. 将暂存区内容撤回至工作区
 	git reset HEAD [file]
+10. 删除文件
+	git rm [file]
+11. 添加远程仓库
+	git remote add origin git@github.com:endless-space/demos.git
+12. 推送本地仓库的分支内容至远程仓库的分支内容
+	git push -u origin master:master
+13. 创建并切换分支
+	git checkout -b dev 等价于
+		git branch dev
+		git checkout dev
+14. 删除分支
+	git branch -d dev
+
