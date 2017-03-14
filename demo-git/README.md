@@ -20,9 +20,12 @@ Git Note
   add 添加动作将修改从工作区添加至暂存区
   commit 提交动作将暂存区内容提交到当前分支
   git分支的目的主要是隔离工作
+  git发布时使用标签标记commit_id, 获得某次的全部状态
 
 
 ## Git实践
+0. 基本配置
+	git config --global color.ui true
 1. 创建版本库
 	git init
 2. 查看版本库状态
@@ -37,6 +40,7 @@ Git Note
 	git commit -m "提交说明"
 6. 查看提交日志和命令日志
 	git log
+	git log --graph --pretty=oneline --abbrev-commit
 	git reflog 
 7. 切换版本(回退)版本
 	git reset --hard commit_id
@@ -48,6 +52,7 @@ Git Note
 	git rm [file]
 11. 添加远程仓库
 	git remote add origin git@github.com:endless-space/demos.git
+	git remote -v
 12. 推送本地仓库的分支内容至远程仓库的分支内容
 	git push -u origin master:master
 13. 创建并切换分支
@@ -57,5 +62,29 @@ Git Note
 14. 删除分支
 	git branch -d dev
 15. 合并分支
-	git merge dev
+	git merge dev (fast-forward模式的分支合并)
+	git merge --no-ff -m "merge branch" dev
+16. 暂存恢复工作区内容
+	git stash
+	git stash list
+	git stash pop
+	git stash drop
+	git stash apply
+
+## 最佳实践
+分支管理策略:
+	master分支用于发布版本, 不用于开发
+	dev分支用于开发, 发布时合并到master分支.
+	每个开发都有自己的分支, 是不是合并到dev分支上.
+	bug的处理使用bug分支, 确定在那个分支上修改bug, 最终合并至那个分支.
+	在切回创建bug分支之前stash当前分支的内容, 稍后恢复.
+	feature分支和bug分支类似.
+
+多人协作的工作模式通常是这样：
+	首先，可以试图用git push origin branch-name推送自己的修改；
+	如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+	如果合并有冲突，则解决冲突，并在本地提交；
+	没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+	如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建.
+		用命令git branch --set-upstream branch-name origin/branch-name
 
