@@ -56,4 +56,6 @@ Git Note
 		git checkout dev
 14. 删除分支
 	git branch -d dev
+15. 合并分支
+	git merge dev
 
