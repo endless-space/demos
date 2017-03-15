@@ -22,7 +22,6 @@ Git Note
   git分支的目的主要是隔离工作
   git发布时使用标签标记commit_id, 获得某次的全部状态
 
-
 ## Git实践
 0. 基本配置
 	git config --global color.ui true
