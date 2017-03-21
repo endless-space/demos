@@ -5,6 +5,7 @@
 		<groupId>com.endlessspace.demo</groupId>
 		<artifactId>demo-dubbo</artifactId>
 		<version>0.0.1</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>demo-dubbo-consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>

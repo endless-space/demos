@@ -14,6 +14,9 @@
 	<!-- 使用zookeeper注册中心暴露服务地址 -->  
 	<dubbo:registry address="zookeeper://192.168.33.10:2181" check="false" subscribe="false" register=""></dubbo:registry>
 	
+	<!--  -->
+	<dubbo:protocol name="dubbo" port="20881" />
+	
 	<!-- 服务实现 -->
 	<bean id="helloService" class="com.endlessspace.demo.dubbo.service.impl.HelloServiceImpl" />
 	

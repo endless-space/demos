@@ -13,15 +13,17 @@ import com.endlessspace.demo.dubbo.service.HelloService;
  */
 public class Main {
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
 		applicationContext.start();
 		
 		HelloService helloService = (HelloService)applicationContext.getBean("helloService");
-		String msg = helloService.sayHello("wangbo");
-		LOG.info(msg);
-		
-		System.in.read();
+		for(;;) {
+			String msg = helloService.sayHello("wangbo");
+			LOG.info(msg);
+			
+			Thread.sleep(1000);
+		}
 	}
 	
 	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
