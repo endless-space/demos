@@ -18,7 +18,9 @@
 	<dubbo:protocol name="dubbo" port="20881" />
 	
 	<!-- 服务实现 -->
-	<bean id="helloService" class="com.endlessspace.demo.dubbo.service.impl.HelloServiceImpl" />
+	<bean id="helloService" class="com.endlessspace.demo.dubbo.service.impl.HelloServiceImpl">
+		<property name="props" ref="helloProps" />
+	</bean>
 	
 	<!-- 要暴露的服务接口 -->  
 	<dubbo:service interface="com.endlessspace.demo.dubbo.service.HelloService" ref="helloService" />  	
