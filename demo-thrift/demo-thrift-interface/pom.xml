@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.endlessspace.demo</groupId>
+        <artifactId>demo-thrift</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <artifactId>demo-thrift-interface</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <build>
+        <!-- thrift plugin 没用上
+        <plugins>
+            <plugin>
+                <groupId>org.apache.thrift.tools</groupId>
+                <artifactId>maven-thrift-plugin</artifactId>
+                <version>0.1.10</version>
+                <configuration>
+                    <thriftExecutable>D:/utils/thrift-0.10.0.exe</thriftExecutable>
+                    <thriftSourceRoot>${basedir}/src/main/resources/interface</thriftSourceRoot>
+                </configuration>
+                
+                <executions>
+                    <execution>
+                        <id>thrift-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>thrift-test-sources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        -->
+    </build>
+</project>
