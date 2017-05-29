@@ -1,6 +1,7 @@
 package com.endlessspace.demo.net;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -26,9 +27,16 @@ public class BioClient {
 		Socket socket = new Socket();
 		try {
 			socket.connect(new InetSocketAddress(ip, port));
+			
+			OutputStream output = socket.getOutputStream();
+			output.write("test".getBytes());
+			output.flush();
+			output.close();
+			
+			socket.close();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("连接错误", e);
 		}
 	}
 	

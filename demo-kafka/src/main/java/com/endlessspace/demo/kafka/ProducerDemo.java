@@ -22,8 +22,7 @@ public class ProducerDemo {
 	 * 新版客户端Producer为线程安全的, 可以在多个线程间共享一个实例
 	 */
 	public void startDemo() {
-		Properties props = initProducerConfig();
-		Producer<String, String> producer = new KafkaProducer<>(props);
+		Producer<String, String> producer = new KafkaProducer<>(initProducerConfig());
 
 		for (int i = 0; i < 100; i++) {
 			LOG.info("send record: (" + Integer.toString(i) + ", " + Integer.toString(i) + ")");
