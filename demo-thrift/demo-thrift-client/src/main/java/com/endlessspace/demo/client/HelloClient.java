@@ -20,9 +20,10 @@ public class HelloClient {
 
 			String name = "endlessspace";
 			System.out.println("请求参数==>name为" + name);
-			String result = client.sayHello("Eric");
+			String result = client.sayHello(name);
 			System.out.println("返回结果==>为" + result);
 			transport.close();
+			
 		} catch (TTransportException e) {
 			e.printStackTrace();
 		} catch (TException e) {
