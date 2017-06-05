@@ -19,5 +19,10 @@ public class ProxyConstant {
 	public static final int PHRASE_READ_COMMAND_RESULT = 9;
 	public static final int PHRASE_SEND_COMMAND_RESULT = 10;
 	
-	// 命令类型 
+	// 数据包类型
+	public static final int PACKET_TYPE_HANDSHAKE = 0;
+	public static final int PACKET_TYPE_AUTHENTICATION = 1;
+	public static final int PACKET_TYPE_AUTHENTICATION_RESULT = 2;
+	public static final int PACKET_TYPE_COMMAND = 3;
+	public static final int PACKET_TYPE_COMMAND_RESULT = 4;
 }

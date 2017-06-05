@@ -21,6 +21,7 @@ public class StandardEnvironmentMain {
 		 * 获得运行时系统属性
 		 */
 		Map props = (Map)System.getProperties();
+		LOG.info("------------------------------------------------");
 		for (Iterator it = props.keySet().iterator(); it.hasNext();) {
 			Object key = it.next();
 			Object val = props.get(key);
@@ -31,6 +32,7 @@ public class StandardEnvironmentMain {
 		 * 获得操作系统环境变量
 		 */
 		Map<String, String> envs = System.getenv();
+		LOG.info("------------------------------------------------");
 		for (Iterator<String> it = envs.keySet().iterator(); it.hasNext();) {
 			String key = it.next();
 			String val = envs.get(key);
@@ -42,6 +44,7 @@ public class StandardEnvironmentMain {
 		 * Spring对上述两种两种信息的抽象
 		 */
 		Environment env = new StandardEnvironment();
+		LOG.info("------------------------------------------------");
 		LOG.info("{}", Arrays.toString(env.getActiveProfiles()));
 		LOG.info("{}", Arrays.toString(env.getDefaultProfiles()));
 		LOG.info(env.getProperty("java.version"));
