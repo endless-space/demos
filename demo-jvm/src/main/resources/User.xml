@@ -1,0 +1,12 @@
+<users>
+    <user>
+        <name>wangbo</name>
+        <age>27</age>
+        <gender>M</gender>
+    </user>
+    <user>
+        <name>YI</name>
+        <age>24</age>
+        <gender>F</gender>
+    </user>
+</users>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.endlessspacex.com/schema/user" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.endlessspacex.com/schema/user">
+
+    <xsd:element name="user" type="userType">
+    </xsd:element>
+    <xsd:complexType name="userType">
+        <xsd:attribute name="id" type="xsd:string">
+        </xsd:attribute>
+        <xsd:attribute name="name" type="xsd:string">
+        </xsd:attribute>
+    </xsd:complexType>
+</xsd:schema> 

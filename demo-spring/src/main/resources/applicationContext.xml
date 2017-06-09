@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context.xsd"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:endlessspace="http://www.endlessspacex.com/schema/user"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.endlessspacex.com/schema/user http://www.endlessspacex.com/schema/user.xsd"
 	default-lazy-init="false">
 
 	<bean id="king" name="coreUser" class="com.endlessspace.demo.spring.beans.User">
 		<property name="name" value="core" />
 	</bean>
+    
+    <bean id="userService" class="com.endlessspace.demo.spring.beans.UserServiceImpl" />
+    <bean id="userServiceAdvice" class="com.endlessspace.demo.spring.beans.UserServiceAdvice" />
+    
+    <!--
+        ProxyFactoryBean 是实现了FactoryBean<T>接口的类 
+     -->
+    <bean id="userServiceWithLog" class="org.springframework.aop.framework.ProxyFactoryBean"
+        p:proxyInterfaces="com.endlessspace.demo.spring.beans.UserService"
+        p:interceptorNames="userServiceAdvice"
+        p:target-ref="userService" />
+        
+    <endlessspace:user id="wangbo" name="wangbo" />
 </beans>

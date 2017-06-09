@@ -15,6 +15,7 @@ public class BeanFactoryMain {
 	
 	public static void main(String[] args) throws Exception {
 		BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("applicationContext.xml"));
+		if (beanFactory.containsBean("king")) LOG.info("constains bean");
 		User king = beanFactory.getBean("king", User.class);
 		
 		LOG.info("{}", king);

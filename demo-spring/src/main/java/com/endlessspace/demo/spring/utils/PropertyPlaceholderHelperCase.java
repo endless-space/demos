@@ -6,6 +6,10 @@ import java.util.Map;
 import org.springframework.util.PropertyPlaceholderHelper;
 import org.springframework.util.PropertyPlaceholderHelper.PlaceholderResolver;
 
+/**
+ * 描述: 
+ * 	property placeholder 工具类的使用例子
+ */
 public class PropertyPlaceholderHelperCase {
 	
 	public static void main(String[] args) {
