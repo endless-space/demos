@@ -34,7 +34,7 @@ public class ProxyContext implements Runnable {
 	private InputStream clientInputStream;
 	private OutputStream clientOutputStream;
 	
-	// 连接状态
+	// 代理状态
 	private boolean isProxyRunning = true;
 	
 	// 协议处理器
