@@ -2,7 +2,6 @@ package com.endless.demo.jaxp;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
