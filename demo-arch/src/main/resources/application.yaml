@@ -1,0 +1,13 @@
+app:
+    name: ""
+
+spring:
+    profiles:
+        active: dev
+    main:
+        banner-mode: "off"
+        
+logging:
+    level:
+        root: INFO
+    

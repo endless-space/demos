@@ -1,0 +1,14 @@
+server:
+    port: 8080
+
+spring:
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: ""
+        username: ""
+        password: ""
+
+redis:
+    host: ""
+    port: ""
+

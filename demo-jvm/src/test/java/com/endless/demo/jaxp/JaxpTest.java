@@ -73,7 +73,6 @@ public class JaxpTest {
 		}
 	}
 	
-	
 	/**
 	 * SPI
 	 * 	Service provider interface
