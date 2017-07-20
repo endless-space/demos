@@ -9,6 +9,5 @@ public class BillingModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		
 	}
 }
