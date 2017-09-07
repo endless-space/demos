@@ -27,12 +27,18 @@ public class BioClient {
 		Socket socket = new Socket();
 		try {
 			socket.connect(new InetSocketAddress(ip, port));
+			socket.setTcpNoDelay(true);
 			
 			OutputStream output = socket.getOutputStream();
 			output.write("test".getBytes());
 			output.flush();
 			output.close();
 			
+			try {
+				Thread.sleep(5000);
+			} catch (Exception e) {
+				
+			}
 			socket.close();
 			
 		} catch (IOException e) {

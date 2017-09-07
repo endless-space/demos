@@ -1,6 +1,7 @@
 package com.endlessspace.demo.net;
 
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -28,43 +29,61 @@ public class NioServer {
 		this.port = port;
 	}
 	
+	public static void main(String[] args) {
+		NioServer server = new NioServer(7070);
+		server.start();
+	}
+	
 	/**
 	 * 启动NioServer
 	 */
 	public void start() {
 		try {
+			// 核心组件Selector
 			selector = Selector.open();
 			
+			// 核心组件ServerSocketChannel
 			ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
 			serverSocketChannel.configureBlocking(false);
 			serverSocketChannel.socket().bind(new InetSocketAddress(port));
+			
+			// 建立ServerSocketChannel与Selector的关联
 			serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 			
 			while (true) {
-				int readyChannel = selector.select();
-				if (readyChannel == 0) continue;
-				LOG.info("发生 {} 个事件 ", readyChannel);
-				
+				// 从Selctor中阻塞获得事件
+				selector.select();
 				Set<SelectionKey> keys = selector.selectedKeys();
+				
+				// 迭代处理获得的事件
 				for (Iterator<SelectionKey> it = keys.iterator(); it.hasNext();) {
 					SelectionKey key = it.next();
 					if (key.isAcceptable()) {
-						
+						LOG.info("收到连接");
+						SocketChannel socketChannel = serverSocketChannel.accept();
+						socketChannel.configureBlocking(false);
+						socketChannel.register(selector, SelectionKey.OP_READ);
 					}
+					if (key.isReadable()) {
+						LOG.info("收到读数据");
+						SocketChannel socketChannel = (SocketChannel)key.channel();
+						ByteBuffer buffer = ByteBuffer.allocate(1024);
+						int receiveNum = socketChannel.read(buffer);
+						buffer.flip();
+						if (buffer.hasRemaining()) {
+							System.out.print((char)buffer.get());
+						}
+						System.out.println();
+					}
+					
 					it.remove();
 				}
-				LOG.info("回看keys: {}", keys);
 			}
 			
 		} catch (Exception e) {
-			LOG.info("获得Selector失败", e);
+			LOG.info("NIO SERVER EXCEPTION", e);
 		}
 	}
 	
 	private static final Logger LOG = LoggerFactory.getLogger(NioServer.class);
-	
-	public static void main(String[] args) {
-		NioServer server = new NioServer(7070);
-		server.start();
-	}
 }
