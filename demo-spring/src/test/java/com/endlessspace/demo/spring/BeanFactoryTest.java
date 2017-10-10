@@ -3,7 +3,9 @@ package com.endlessspace.demo.spring;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.SimpleBeanDefinitionRegistry;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.io.ClassPathResource;
 
@@ -34,7 +36,6 @@ public class BeanFactoryTest {
 		userService.getUserNickname("test");
 	}
 	
-	
 	@Test
 	public void testUserDefineElem() {
 		DefaultListableBeanFactory bf = new DefaultListableBeanFactory();
@@ -42,6 +43,14 @@ public class BeanFactoryTest {
 		reader.loadBeanDefinitions(new ClassPathResource("applicationContext.xml"));
 		User wangbo = bf.getBean("wangbo", User.class);
 		LOG.info("{}", wangbo);
+	}
+	
+	@Test
+	public void testBeanDefinitionReader() {
+		BeanDefinitionRegistry beanDefinitionRegistry = new SimpleBeanDefinitionRegistry();
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanDefinitionRegistry);
+		reader.loadBeanDefinitions(new ClassPathResource("applicationContext.xml"));
+		LOG.info("{}", beanDefinitionRegistry.getBeanDefinition("wangbo"));
 	}
 	
 	private static final Logger LOG = LoggerFactory.getLogger(BeanFactoryTest.class);

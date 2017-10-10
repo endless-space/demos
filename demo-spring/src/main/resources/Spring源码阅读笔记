@@ -1,0 +1,74 @@
+Spring源码阅读笔记
+
+IOC, 控制反转, 外部容器统一管理, Spring容器
+
+BeanFactory:
+	1, Spring容器 外部视图
+	2, Spring容器 根接口, 共性. 特性使用如下接口:
+		BeanFactory
+			ListableBeanFactory
+			AutowireCapableBeanFactory
+			HierachicalBeanFactory
+				ConfigurableBeanFactory
+					ConfigurableListableBeanFactory
+	3, BeanFactory包含一组bean definitions. 每一个bean definition使用唯一字符串标识
+	4, BeanFactory根据bean definition内容, 产生独立实例(Prototype pattern) 或 单个共享实例(Singleton pattern)
+	5, BeanFactory本质是应用组件集中化管理配置观点方法的运用
+	6, 组件配置push(di) / pull(lookup)模式, 优先使用di
+	7, 通常BeanFactory会从配置源(xml db etc..)加载bean definitions,  使用beans包中的功能配置一个bean
+	8, 与ListableBeanFactory不同, HierarchicalBeanFactory在自身不满足条件的情况下, 会去父BeanFactory查找bean
+	9, BeanFactory实现要尽可能支持bean生命周期接口, 初始化接口及其顺序如下:
+		BeanNameAware.setBeanName (BeanFactory)
+		BeanClassLoaderAware.setBeanClassLoader (BeanFactory)
+		BeanFactoryAware.setBeanFactory (BeanFactory)
+		EnvironmentAware.setEnvirment (BeanFactory)
+		EmbeddedValueResolverAware.setEmbeddedValueResolver (BeanFactory)
+		ResourceLoaderAware.setResourceLoader (ApplicationContext)
+		ApplicationEventPublisherAware.setApplicationEventPublisher (ApplicationContext)
+		MessageSourceAware.setMessageSource (ApplicationContext)
+		ApplicationContextAware.setApplicationContext (ApplicationContext)
+		ServletContextAware.setServletContext (WebApplicationContext)
+
+		postProcessBeforeInitialization of BeanPostProcessors
+		afterPropertiesSet of InitializingBean
+		custom init-method definition
+		postProcessAfterInitialization  of BeanPostProcessors
+
+		BeanFactory shutdown时下列生命周期方法将被执行:
+		postProcessBeforeDestruction of DestructionAwareBeanPostProcessors
+		destroy of DisposableBean
+		custom destroy-method definition
+	10, &用于获取FactoryBean
+
+BeanDefinitionRegistry
+	1, AliasRegistry 管理alias, 作为BeanDefinitionRegistry的父接口, SimpleAliasRegistry使用ConcurrentHashMap<String, String>实现
+	2, SimpleBeanDefinitionRegistry使用ConcurrentHashMap<String, BeanDefinition>实现
+
+BeanDefinition
+	1, 一个BeanDefinition描述一个bean
+	2, 主要目的是让BeanFactoryPostProcessor(例如PropertyPlaceholderConfigurer)能introspect并修改属性及其他bean元信息.
+	3, AttributeAccessor: 任意对象元信息访问规范接口, AttributeAccessorSupport使用Map实现attribute管理
+	4, BeanMetadataElement包含一个配置源对象, BeanMetadataAttribute, k-v-source 3元组实现
+	5, 具体实现包括GenericBeanDefinition, RootBeanDefinition, ChildBeanDefinition
+	6, BeanDefinitionHolder是一个BeanMetadataElement, BeanDefinition,beanName,alias[]的3元组
+
+BeanDefinitionReader (读取配置源, 注册BeanDefinition)
+	1, XmlBeanDefinitionReader (需要一个BeanDefinitionRegistry)
+	2, XmlBeanDefinitionReader.loanBeanDeifinitions基本流程
+		2.1 Resource -> InputSource 后执行doLoadBeanDefinitions
+		2.2 doLoadBeanDefinitions 执行doLoadDocument获得xml Document, 执行registerBeanDefinitions
+		2.3 registerBeanDefinitions 通过 BeanDefinitionDocumentReader.registerBeanDefinitions找到Document的根元素, 执行doRegisterBeanDefinitions(root)
+		2.4 执行parseBeanDefinitions(root, BeanDefinitionParserDelegate), delegate根据是否是默认namespace选择parseDefaultElement和delegate.parseCustomElement
+
+	3, XmlBeanDefinitionReader加载过程中的工具类:
+		3.1 BeanDefinitionDocumentReader
+		3.2 BeanDefinitionParserDelegate
+
+Spring的资源加载机制
+	Resource
+		ResourceLoader
+			ResourcePatternResolver (ant 风格资源匹配)
+
+Spring的xml资源加载处理机制
+	1, xml的验证模式
+	2, JAXP API进行xml解析
